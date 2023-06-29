@@ -4,11 +4,21 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>AspNetCore.Authorization.Extender</Title>
+    <Authors>bberka</Authors>
+    <Description>Enhance your AspNetCore authorization and authentication with permission based authorization rather than basic role based.</Description>
+    <Copyright>https://raw.githubusercontent.com/bberka/AspNetCore.Authorization.Extender/master/LICENSE</Copyright>
+    <PackageProjectUrl>https://github.com/bberka/AspNetCore.Authorization.Extender</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/bberka/AspNetCore.Authorization.Extender/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/bberka/AspNetCore.Authorization.Extender</RepositoryUrl>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0"/>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5"/>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
   </ItemGroup>
 
 </Project>
