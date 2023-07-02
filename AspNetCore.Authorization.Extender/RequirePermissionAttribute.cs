@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Security.Principal;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -13,7 +14,7 @@ namespace AspNetCore.Authorization.Extender;
 ///     <example>
 ///         <br />
 ///         Example: Add ActionCode to <see cref="HttpContext.User" /> claims with
-///         <see cref="ExtenderClaimTypes.EndPointPermissions" /> claim type and
+///         <see cref="ExtClaimTypes.EndPointPermissions" /> claim type and
 ///         separate multiple ActionCode with ","
 ///         <br />
 ///         <br />
@@ -24,6 +25,7 @@ namespace AspNetCore.Authorization.Extender;
 public class RequirePermissionAttribute : ActionFilterAttribute
 {
   private readonly string _permissionName;
+
 
   /// <summary>
   ///  Constructor for <see cref="RequirePermissionAttribute" />. Converts given enum to string and use it as ActionCode.
@@ -46,27 +48,15 @@ public class RequirePermissionAttribute : ActionFilterAttribute
   }
 
   public override void OnActionExecuting(ActionExecutingContext actionExecutingContext) {
+    var isActionHasAllowAnonymous = actionExecutingContext.ActionDescriptor.EndpointMetadata.Any(x => x is AllowAnonymousAttribute);
+    if (isActionHasAllowAnonymous) return;
     if (actionExecutingContext.HttpContext.User.Identity is { IsAuthenticated: false }) {
       actionExecutingContext.Result = new UnauthorizedResult();
       return;
     }
-    var hasAllPermissions = actionExecutingContext.HttpContext.User.FindFirst(ExtenderClaimTypes.AllPermissions) != null;
-    if (hasAllPermissions) return;
-    
-    
-    var claim = actionExecutingContext.HttpContext.User.FindFirst(ExtenderClaimTypes.EndPointPermissions);
-    var endPointPermissionString = claim?.Value;
-    if (string.IsNullOrEmpty(endPointPermissionString)) {
+    var hasPermission = actionExecutingContext.HttpContext.User.HasPermission(_permissionName);
+    if (!hasPermission) {
       actionExecutingContext.Result = new ForbidResult();
-      return;
-    }
-
-    var permList = InternalHelper.SplitPermissions(endPointPermissionString);
-    var hasAnyPermissions = permList.Length != 0;
-    var hasPermission = permList.Contains(_permissionName);
-    if (hasAnyPermissions || !hasPermission) {
-      actionExecutingContext.Result = new ForbidResult();
-      return;
     }
   }
 }

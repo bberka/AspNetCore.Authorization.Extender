@@ -4,15 +4,8 @@ namespace AspNetCore.Authorization.Extender;
 
 
 
-public static class ExtenderClaimTypes
+public static class ExtClaimTypes
 {
-  /// <summary>
-  ///   Claim type for initializing User authorization in order to use <see cref="HttpMethodAuthorizationMiddleware" />.
-  ///   <br />
-  ///   <br />
-  ///   Value must contain <see cref="HttpMethod" /> strings separated with comma ",".
-  /// </summary>
-  public static string HttpMethodPermissions => "AspNetCore.Authorization.Extender::5b0ea63fdc71f29af99957d9ddd6381d05dbc00d005b71006887485227e52b9b";
 
   /// <summary>
   ///   Claim type for initializing User authorization in order to use <see cref="RequirePermissionAttribute" />.
@@ -26,8 +19,7 @@ public static class ExtenderClaimTypes
   public static string EndPointPermissions => "AspNetCore.Authorization.Extender::46729b745167f7f710b5cdbd244c82c031b8768b9d602e09f8c3b739a0d50327";
 
   /// <summary>
-  ///   Claim type for giving a user all permissions for <see cref="RequirePermissionAttribute" /> and
-  ///   <see cref="HttpMethodAuthorizationMiddleware" />.
+  ///   Claim type for giving a user all permissions for <see cref="RequirePermissionAttribute" />
   ///   Once this claim is set, all other permissions will be ignored and user will be allowed to access all endpoints.
   ///   <br />
   ///   <br />

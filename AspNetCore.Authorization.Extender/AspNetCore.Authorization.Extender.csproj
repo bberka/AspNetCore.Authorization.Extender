@@ -12,9 +12,28 @@
     <PackageProjectUrl>https://github.com/bberka/AspNetCore.Authorization.Extender</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/bberka/AspNetCore.Authorization.Extender/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/bberka/AspNetCore.Authorization.Extender</RepositoryUrl>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
+    <AssemblyVersion>2.0.0</AssemblyVersion>
+    <FileVersion>2.0.0</FileVersion>
+    <SignAssembly>False</SignAssembly>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryType>github</RepositoryType>
+    <PackageTags>c# authorization aspnet aspnetcore asp csharp cs permission</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
