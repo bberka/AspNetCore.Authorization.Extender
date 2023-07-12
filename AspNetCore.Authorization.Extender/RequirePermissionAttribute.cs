@@ -33,8 +33,11 @@ public class RequirePermissionAttribute : ActionFilterAttribute
   /// </summary>
   /// <param name="enumPermission"></param>
   /// <exception cref="ArgumentNullException"></exception>
-  public RequirePermissionAttribute(Enum enumPermission) {
-    _permissionName = enumPermission.ToString();
+  public RequirePermissionAttribute(object enumPermission) {
+    if(enumPermission is null) throw new ArgumentNullException(nameof(enumPermission));
+    var perm = enumPermission.ToString();
+    if(string.IsNullOrEmpty(perm)) throw new ArgumentNullException(nameof(enumPermission));
+    _permissionName = perm;
   }
 
   /// <summary>
