@@ -42,11 +42,6 @@ This is different from role based authorization because instead of assigning mul
 By using this you can set specific permission for each endpoint and assign those to users.
 
 This gives overall more control over authorization and rather than editing controllers to change who accesses which endpoint.
-You can assign a role group to a user and then define which permissions are allowed for each role group in your database.
-When user logins you take all the permissions in users role group and add as claim and the library will do the rest.
-When you want to remove a permission from a user you just remove it from the role group and it will be removed from user.
-
-However keep in mind that once a claim is created it will not be removed until user logs out and logs back in.
 
 ### Implementing permission to an Endpoint
 ```csharp
@@ -60,11 +55,23 @@ public class UserController : Controller {
     public IActionResult Login(){ /* Your code */}
 }
 ```
+## Recommended usage with Database
+Create a Permissions table in your database and always sync this table with your Permissions Enum Type.
+
+Create a Roles table in your database and define roles
+
+Create a RolePermissions table in your database and define which permissions are allowed for each role. (Many to Many relationship)
+
+In your Users table add the role you want to the user.
+
+Once user logins, get all permissions of User's role and create a permission string by using extension methods provided by the library.
+
+Then simply add this to user's claims and you are done.
+
+However keep in mind that once a claim is created it will not be removed until user logs out and logs back in.
 
 ## Creating user claims
 In the example EndPointPermissions are added to claims.
-You can use both at same time. Or you can use only one of them.
-
 
 When authenticated user tries to access an endpoint,
 RequirePermissionAttribute will check if user has permission to access endpoint.
@@ -92,9 +99,11 @@ claimList.AddPermissions(endpointPermissions);
 var identity = new ClaimsIdentity(claimList, "login"); // Create identity
 var principal = new ClaimsPrincipal(identity); // Create principal
 await HttpContext.SignInAsync(principal); // Sign in user
+
+//.. or create JWT token with claims
 ```
 
-### Extension Methods
+## Extension Methods
 ```csharp
 // Create permission string from List<string> or List<Enum>
 var permissionString = permissions.CreatePermissionString();
