@@ -103,6 +103,48 @@ await HttpContext.SignInAsync(principal); // Sign in user
 //.. or create JWT token with claims
 ```
 
+## Creating policies 
+Library provides few simple extension methods to add RequirePermissionAttribute logic as policies.
+
+### Using PolicyNameTemplate
+You can pass a list of permissions and a PolicyNameTemplate to create policies.
+```csharp
+// Add policy to services
+var permissionList = new List<Permissions>(){
+    Permissions.AccessAccountSettings,
+    Permissions.UpdateUser,
+    Permissions.UpdateUserPassword,
+    //... etc.
+}; // Get permissions from database
+services.AddAuthorization(options =>
+{
+    // Add policy with permission list with a default PolicyNameTemplate of "RequirePermission:{PermissionName}"
+    options.AddRequiredPermissionPolicies(permissionList);
+    // Or add policy with custom PolicyNameTemplate
+    options.AddRequiredPermissionPolicies(permissionList, "CustomPolicyNameTemplate:{PermissionName}");
+    
+});
+```
+### Using Dictionary key value pairs as PolicyName and Permission 
+You can pass a dictionary of PolicyName and Permission to create policies.
+```csharp
+// Add policy to services
+var policyDictionary = new Dictionary<object, object>(){
+    {Policy.RequireAccessAccountSettingsPermission, Permissions.AccessAccountSettings},
+    {Permissions.AccessAccountSettings, Permissions.AccessAccountSettings},
+    {"CustomPolicyName", Permissions.UpdateUser},
+    {"CustomPolicyName", "UpdateUser"}
+    //... etc.
+    //You can use enum types or strings to define permissions. 
+};
+services.AddAuthorization(options =>
+{
+    options.AddRequiredPermissionPolicies(policyDictionary);
+});
+```
+
+
+
 ## Extension Methods
 ```csharp
 // Create permission string from List<string> or List<Enum>
@@ -121,3 +163,4 @@ var hasPermission = HttpContext.User.HasPermission("AccessAccountSettings"); //b
 
 var permissions = HttpContext.User.GetPermissions();//returns List<string> of current users permissions
 ```
+

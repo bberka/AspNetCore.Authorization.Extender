@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore.Authorization.Extender", "AspNetCore.Authorization.Extender\AspNetCore.Authorization.Extender.csproj", "{508A89A4-50AD-465C-9E02-9846C153F67F}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore.Authorization.Extender", "AspNetCore.Authorization.Extender\AspNetCore.Authorization.Extender.csproj", "{508A89A4-50AD-465C-9E02-9846C153F67F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +15,11 @@ Global
 		{508A89A4-50AD-465C-9E02-9846C153F67F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{508A89A4-50AD-465C-9E02-9846C153F67F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{508A89A4-50AD-465C-9E02-9846C153F67F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE2B01BA-6DA1-4575-9D5C-19385140D730}
 	EndGlobalSection
 EndGlobal
